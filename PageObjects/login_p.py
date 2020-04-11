@@ -7,7 +7,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 class LoginPage:
     def __init__(self,driver):
-        self.driver = webdriver.Chrome()
+        self.driver = driver
 
     #登录
     def login(self,username,password,remember_user=True):
@@ -15,7 +15,7 @@ class LoginPage:
         WebDriverWait(self.driver,20).until(EC.visibility_of_element_located((By.XPATH,'//input[@name="phone"]')))
         name_text = '//input[@name="phone"]'
         pwd_text = '//input[@name="password"]'
-        login_but = '//button[text()="登录"'
+        login_but = '//button[text()="登录"]'
         self.driver.find_element_by_xpath(name_text).send_keys(username)
         self.driver.find_element_by_xpath(pwd_text).send_keys(password)
         self.driver.find_element_by_xpath(login_but).click()
