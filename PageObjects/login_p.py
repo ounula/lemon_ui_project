@@ -7,6 +7,7 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 class LoginPage:
     def __init__(self,driver):
+        # self.driver = webdriver.Chrome()
         self.driver = driver
 
     #登录
@@ -23,6 +24,18 @@ class LoginPage:
         if not remember_user:
             self.driver.find_element_by_xpath('//input[@name="remember_me"]').click()
 
+    #获取用户名下方错误提示信息
+    def pleaseInputUser(self):
+        try:
+            WebDriverWait(self.driver,20).until(EC.visibility_of_element_located((By.XPATH,'//div[@class="form-error-info"]')))
+            return self.driver.find_element_by_xpath('//div[@class="form-error-info"]').text
+        except:
+            return None
 
-    #注册
-    #找回密码
+    #获取页面正中错误提示信息
+    def noRegist_wrongPasswd(self):
+        try:
+            WebDriverWait(self.driver,20).until(EC.visibility_of_element_located((By.XPATH,'//div[@class="layui-layer-content"]')))
+            return self.driver.find_element_by_xpath('//div[@class="layui-layer-content"]').text
+        except:
+            return None
