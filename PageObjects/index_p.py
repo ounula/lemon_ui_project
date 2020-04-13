@@ -2,21 +2,20 @@
 #author: zhh
 #time: 2020/4/11 23:59
 from selenium import webdriver
+from PageLocators.homepage_locator import HomePageLocator as loc
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-class IndexPage:
-    def __init__(self,driver):
-        self.driver=driver
-        # self.driver=webdriver.Chrome()
+from Common.logger import Log
+from Common.basepage import BasePage
+class IndexPage(BasePage):
+    # def __init__(self,driver):
+    #     self.driver=driver
+    #     self.driver=webdriver.Chrome()
 
     def isExist_logout_ele(self):
-        #如果登出按钮存在
-        try:
-            WebDriverWait(self.driver,10).until(EC.visibility_of_element_located((By.XPATH,'//a[@href="/Index/logout.html"]')))
-            return True
-        except:
-            return False
+        doc="判断登出按钮存在"
+        self.wait_eleVisible(loc.logOut,doc=doc)
 
     #选标操作
     def select_first_bid(self):
