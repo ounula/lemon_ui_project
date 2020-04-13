@@ -7,8 +7,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 class IndexPage:
     def __init__(self,driver):
-        # self.driver=driver
-        self.driver=webdriver.Chrome()
+        self.driver=driver
+        # self.driver=webdriver.Chrome()
 
     def isExist_logout_ele(self):
         #如果登出按钮存在

@@ -6,33 +6,29 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.by import By
 from PageLocators.loginpage_locator import LoginPageLocator as loc
-class LoginPage:
-    def __init__(self,driver):
-        # self.driver = webdriver.Chrome()
-        self.driver = driver
+from Common.basepage import BasePage
+
+class LoginPage(BasePage):
     #登录
     def login(self,username,password,remember_user=True):
         #输入用户名、密码，点击登录
-        WebDriverWait(self.driver,20).until(EC.visibility_of_element_located((loc.name_text)))
-        self.driver.find_element(*loc.name_text).send_keys(username)
-        self.driver.find_element(*loc.pwd_text).send_keys(password)
-        self.driver.find_element(*loc.login_but).click()
+        doc = "登录页面_登录功能"
+        self.wait_eleVisible(loc.name_text)
+        self.input_text(loc.name_text,username,doc)
+        self.input_text(loc.pwd_text,password,doc)
+        self.click_element(loc.login_but,doc)
         # 判断是否勾选保存用户名
         if not remember_user:
-            self.driver.find_element(*loc.remember_me).click()
+            self.click_element(loc.remember_me,doc)
 
     #获取用户名下方错误提示信息
     def pleaseInputUser(self):
-        try:
-            WebDriverWait(self.driver,20).until(EC.visibility_of_element_located((loc.errMSG_loginArea)))
-            return self.driver.find_element(*loc.errMSG_loginArea).text
-        except:
-            return None
+        doc = "登录页面_登录区域错误提示"
+        self.wait_eleVisible(loc.errMSG_loginArea,doc=doc)
+        return self.get_text(loc.errMSG_loginArea,doc=doc)
 
     #获取页面正中错误提示信息
     def noRegist_wrongPasswd(self):
-        try:
-            WebDriverWait(self.driver,20).until(EC.visibility_of_element_located((loc.errMSG_midArea)))
-            return self.driver.find_element(*loc.errMSG_midArea).text
-        except:
-            return None
+        doc = "登录页面_中间区域错误提示"
+        self.wait_eleVisible(loc.errMSG_midArea,doc=doc)
+        return self.get_text(loc.errMSG_midArea,doc=doc)

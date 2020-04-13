@@ -17,7 +17,7 @@ class TestLogin(unittest.TestCase):
         print("==========开始测试登陆模块==========")
         cls.driver = webdriver.Chrome()
         cls.driver.get(CD.web_login_url)
-        cls. lg=LoginPage(cls.driver)
+        cls.lg=LoginPage(cls.driver)
     #测试用例前置条件
     def setUp(self):
         pass
