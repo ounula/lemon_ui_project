@@ -16,6 +16,13 @@ class BidPage:
 
     #获取用户余额
     def get_user_money(self):
+        WebDriverWait(self.driver,20).until(EC.visibility_of_element_located)
         pass
 
-    #投资
+    #投资成功提示框 -点击查看并激活
+    def click_activeButton_on_success_popup(self):
+        pass
+
+    #错误提示框 - 非100的整数倍、请正确填写投标金额
+    def please_input_corectMoney(self):
+        pass
