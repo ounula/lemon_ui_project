@@ -2,9 +2,6 @@
 # @Time : 2020/4/13 12:44 
 # @Author : ZHH
 import datetime,time
-a=time.time()
-time.sleep(2.11)
-# b=datetime.datetime.now()
-b=time.time()
-c='%.1f' %(b-a)
+import os
+c=os.path.join(os.path.abspath(os.path.dirname(os.getcwd())),"Outputs","screenshots")
 print(c)
