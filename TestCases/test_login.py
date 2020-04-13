@@ -8,16 +8,16 @@ from PageObjects.index_p import IndexPage
 from TestDatas import common_datas as CD
 from TestDatas import login_datas as LD
 import ddt
-
+from Common.logger import Log
 @ddt.ddt
 class TestLogin(unittest.TestCase):
     #测试类前置条件
     @classmethod
     def setUpClass(cls):
-        print("==========开始测试登陆模块==========")
         cls.driver = webdriver.Chrome()
         cls.driver.get(CD.web_login_url)
         cls.lg=LoginPage(cls.driver)
+        Log().getlogger('====================开始测试登录模块=====================')
     #测试用例前置条件
     def setUp(self):
         pass
