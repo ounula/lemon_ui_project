@@ -13,7 +13,6 @@ from selenium import webdriver
 class BasePage:
     def __init__(self,driver):
         self.driver = driver
-
     #等待元素可见
     def wait_eleVisible(self,locator,wait_times=20,poll_frequency=0.5,doc=""):
         # ''''
@@ -23,7 +22,7 @@ class BasePage:
         # :param doc: 模块名_页面名称_操作名称
         # :return:
         # '''
-        Log().getlogger("等待元素{0}可见".format(locator))
+        Log().log_info("等待元素可见:{0}".format(locator))
         try:
             #开始等待时间
             start = time.time()
@@ -31,10 +30,10 @@ class BasePage:
             #结束等待的时间点
             end = time.time()
             #求差值
-            wait_time = '%.1f' %(end-start)
-            Log().getlogger("找到元素，花费{0}秒".format(wait_time))
+            wait_time = round(end-start,3)
+            Log().log_info("元素已可见，花费{0}秒".format(wait_time))
         except:
-            Log().getlogger("定位元素超时","error")
+            Log().log_error("定位元素超时！定位:{}".format(locator))
             #截图
             self.save_screenshot(doc)
             raise
@@ -49,7 +48,7 @@ class BasePage:
         :param doc: 模块名_页面名称_操作名称
         :return:
         '''
-        Log().getlogger("判断网页存在元素{0}".format(locator))
+        Log().log_info("判断网页存在元素{0}".format(locator))
         try:
             # 开始等待时间
             start = time.time()
@@ -57,17 +56,17 @@ class BasePage:
             # 结束等待的时间点
             end = time.time()
             # 求差值
-            wait_time = '%.1f' % (end - start)
-            Log().getlogger("网页存在元素，花费{0}秒".format(wait_time))
+            wait_time = round(end - start, 3)
+            Log().log_info("元素已存在，花费{0}秒".format(wait_time))
         except:
-            Log().getlogger("定位元素超时","error")
+            Log().log_error("定位元素超时！元素:{}".format(locator))
             # 截图
             self.save_screenshot(doc)
             raise
 
     #查找元素
     def get_element(self,locator,doc=""):
-        Log().getlogger("开始查找元素:{}".format(locator))
+        Log().log_info("开始查找元素:{}".format(locator))
         try:
             #开始等待时间
             start = time.time()
@@ -75,11 +74,11 @@ class BasePage:
             #结束等待的时间点
             end = time.time()
             #求差值
-            wait_time = '%.1f' %(end-start)
-            Log().getlogger("找到元素，花费{0}秒".format(wait_time))
+            wait_time = round(end - start, 3)
+            Log().log_info("找到元素，花费{0}秒".format(wait_time))
             return ele
         except:
-            Log().getlogger("查找元素失败！定位:{}".format(locator),"error")
+            Log().log_error("查找元素失败！定位:{}".format(locator))
             #截图
             self.save_screenshot(doc)
             raise
@@ -87,11 +86,11 @@ class BasePage:
     #点击操作
     def click_element(self,locator,doc=""):
         ele = self.get_element(locator,doc=doc)
-        Log().getlogger("点击元素：{0}成功".format(locator))
+        Log().log_info("点击元素：{0}成功".format(locator))
         try:
             ele.click()
         except:
-            Log().getlogger("元素点击操作失败！定位:{}".format(locator),"error")
+            Log().log_error("元素点击操作失败！定位:{}".format(locator))
             #  截图
             self.save_screenshot(doc)
             raise
@@ -101,9 +100,9 @@ class BasePage:
         ele = self.get_element(locator,doc=doc)
         try:
             ele.send_keys(text)
-            Log().getlogger("输入内容成功")
+            Log().log_info("输入内容成功，输入内容:{}".format(text))
         except:
-            Log().getlogger("输入操作失败！定位:{}".format(),"")
+            Log().log_error("输入操作失败！失败内容:{}".format(text))
             #  截图
             self.save_screenshot(doc)
             raise
@@ -114,7 +113,7 @@ class BasePage:
         try:
             return ele.text
         except:
-            Log().getlogger("获取元素文本失败！定位:{}".format(locator),"error")
+            Log().log_info("获取元素文本失败！定位:{}".format(locator))
             #  截图
             self.save_screenshot(doc)
             raise
@@ -125,7 +124,7 @@ class BasePage:
         try:
             return ele.get_attribute(attr)
         except:
-            Log().getlogger("获取元素属性失败！定位:{}".format(locator),"error")
+            Log().log_error("获取元素属性失败！定位:{}".format(locator))
             #  截图
             self.save_screenshot(doc)
             raise
@@ -153,7 +152,8 @@ class BasePage:
             "/{0}_{1}.png".format(doc,time.strftime("%Y-%m-%d-%H-%M-%S"))
         try:
             self.driver.save_screenshot(filePath)
-            Log().getlogger("截屏成功，图片路径为{}".format(filePath))
+            Log().log_info("截屏成功，图片路径为{}".format(filePath))
         except:
-            Log().getlogger("截图失败","error")
+            Log().log_info("截图失败")
+        raise
 

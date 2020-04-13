@@ -17,7 +17,7 @@ class TestLogin(unittest.TestCase):
         cls.driver = webdriver.Chrome()
         cls.driver.get(CD.web_login_url)
         cls.lg=LoginPage(cls.driver)
-        Log().getlogger('====================开始测试登录模块=====================')
+        Log().log_info('====================开始测试登录模块=====================')
     #测试用例前置条件
     def setUp(self):
         pass
@@ -41,7 +41,7 @@ class TestLogin(unittest.TestCase):
     #正常用例 - 登陆成功
     def test_login_2_success(self):
         self.lg.login(LD.success_data["user"],LD.success_data["passwd"])
-        self.assertTrue(IndexPage(self.driver).isExist_logout_ele())
+        self.assertIsNone(IndexPage(self.driver).isExist_logout_ele())
 
     #异常用例 - 手机号码不正确 (大于11位，小于11位，空)    ddt
     @ddt.data(*LD.phone_data)

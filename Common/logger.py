@@ -11,7 +11,7 @@ class Log:
        curTime = time.strftime('%Y-%m-%d')
        self.logname = logs_dir + '\\' + 'AutoTestLog-' + curTime + '.log'
        # self.logname = os.path.join(log_path,'{0}.log'.format(time.strftime('%Y-%m-%d')))
-   def getlogger(self,msg,level="info"):
+   def getlogger(self,level,msg):
 
         # 创建一个logger
         logger = logging.getLogger()
