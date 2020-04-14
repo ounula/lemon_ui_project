@@ -14,7 +14,7 @@ class BasePage:
     def __init__(self,driver):
         self.driver = driver
     #等待元素可见
-    def wait_eleVisible(self,locator,wait_times=20,poll_frequency=0.5,doc=""):
+    def wait_eleVisible(self,locator,wait_times=30,poll_frequency=0.5,doc=""):
         # ''''
         # :param locator: 元素定位，元祖形式
         # :param times: 最长等待时间
