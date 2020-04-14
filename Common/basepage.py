@@ -22,7 +22,6 @@ class BasePage:
         # :param doc: 模块名_页面名称_操作名称
         # :return:
         # '''
-        Log().log_info("等待元素可见:{0}".format(locator))
         try:
             #开始等待时间
             start = time.time()
@@ -31,9 +30,9 @@ class BasePage:
             end = time.time()
             #求差值
             wait_time = round(end-start,3)
-            Log().log_info("元素已可见，花费{0}秒".format(wait_time))
+            Log().log_info("等待页面加载，花费{}秒".format(wait_time))
         except:
-            Log().log_error("定位元素超时！定位:{}".format(locator))
+            Log().log_error("页面加载超时！定位元素失败:{}".format(locator))
             #截图
             self.save_screenshot(doc)
             raise
@@ -48,7 +47,6 @@ class BasePage:
         :param doc: 模块名_页面名称_操作名称
         :return:
         '''
-        Log().log_info("判断网页存在元素{0}".format(locator))
         try:
             # 开始等待时间
             start = time.time()
@@ -57,16 +55,15 @@ class BasePage:
             end = time.time()
             # 求差值
             wait_time = round(end - start, 3)
-            Log().log_info("元素已存在，花费{0}秒".format(wait_time))
+            Log().log_info("等待页面加载，花费{}秒".format(wait_time))
         except:
-            Log().log_error("定位元素超时！元素:{}".format(locator))
+            Log().log_error("页面加载超时！定位元素失败:{}".format(locator))
             # 截图
             self.save_screenshot(doc)
             raise
 
     #查找元素
     def get_element(self,locator,doc=""):
-        Log().log_info("开始查找元素:{}".format(locator))
         try:
             #开始等待时间
             start = time.time()
@@ -75,7 +72,7 @@ class BasePage:
             end = time.time()
             #求差值
             wait_time = round(end - start, 3)
-            Log().log_info("找到元素，花费{0}秒".format(wait_time))
+            Log().log_info("查找元素:{0}成功，花费{1}秒".format(locator,wait_time))
             return ele
         except:
             Log().log_error("查找元素失败！定位:{}".format(locator))
@@ -86,9 +83,9 @@ class BasePage:
     #点击操作
     def click_element(self,locator,doc=""):
         ele = self.get_element(locator,doc=doc)
-        Log().log_info("点击元素：{0}成功".format(locator))
         try:
             ele.click()
+            Log().log_info("点击元素：{0}成功".format(locator))
         except:
             Log().log_error("元素点击操作失败！定位:{}".format(locator))
             #  截图

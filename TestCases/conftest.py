@@ -7,7 +7,6 @@ from PageObjects.login_p import LoginPage
 from PageObjects.index_p import IndexPage
 from TestDatas import common_datas as CD
 from TestDatas import login_datas as LD
-from Common.logger import Log
 
 driver = None
 #声明fixture
@@ -18,8 +17,8 @@ def access_web():
     driver = webdriver.Chrome()
     driver.get(CD.web_login_url)
     lg=LoginPage(driver)
-    Log().log_info('====================开始测试登录模块=====================')
     yield (driver,lg)#分割线；返回值
+    driver.quit()
     #后置操作
 
 @pytest.fixture()

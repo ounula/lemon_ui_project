@@ -6,13 +6,13 @@ from PageObjects.login_p import LoginPage
 from PageObjects.index_p import IndexPage
 from TestDatas import common_datas as CD
 from TestDatas import login_datas as LD
-import ddt
 from Common.logger import Log
 import pytest
 
 @pytest.mark.usefixtures("access_web")
 @pytest.mark.usefixtures("refresh_page")
 class TestLogin:
+    print('====================开始测试登录模块=====================')
     # #测试类前置条件
     # @classmethod
     # def setUpClass(cls):
@@ -43,9 +43,9 @@ class TestLogin:
     #正常用例 - 登陆成功
 
 
-    def test_login_2_success(self,access_web):
+    def test_login_2_success(self,access_web):#fixture函数作为参数，接收fixture返回值
         access_web[1].login(LD.success_data["user"],LD.success_data["passwd"])
-        self.assertIsNone(IndexPage(access_web[0]).isExist_logout_ele())
+        assert IndexPage(access_web[0]).isExist_logout_ele() is None
 
     #异常用例 - 手机号码不正确 (大于11位，小于11位，空)    ddt
 
