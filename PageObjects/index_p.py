@@ -14,8 +14,9 @@ class IndexPage(BasePage):
     #     self.driver=webdriver.Chrome()
 
     def isExist_logout_ele(self):
-        doc="判断登出按钮存在"
+        doc="主页登出按钮"
         self.wait_eleVisible(loc.logOut,doc=doc)
+        return self.get_element(loc.logOut,doc=doc)
 
     #选标操作
     def select_first_bid(self):

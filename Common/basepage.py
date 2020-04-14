@@ -30,7 +30,7 @@ class BasePage:
             end = time.time()
             #求差值
             wait_time = round(end-start,3)
-            Log().log_info("等待页面加载，花费{}秒".format(wait_time))
+            Log().log_info("等待元素:{0}加载成功，花费{1}秒".format(locator,wait_time))
         except:
             Log().log_error("页面加载超时！定位元素失败:{}".format(locator))
             #截图
@@ -55,7 +55,7 @@ class BasePage:
             end = time.time()
             # 求差值
             wait_time = round(end - start, 3)
-            Log().log_info("等待页面加载，花费{}秒".format(wait_time))
+            Log().log_info("等待元素:{0}加载成功，花费{1}秒".format(locator,wait_time))
         except:
             Log().log_error("页面加载超时！定位元素失败:{}".format(locator))
             # 截图
@@ -146,7 +146,7 @@ class BasePage:
     def save_screenshot(self,doc):
         #图片名称：模块名_页面名称_操作名称_年-月-日_时分秒.png
         filePath = dir_config.screenshot_dir+\
-            "/{0}_{1}.png".format(doc,time.strftime("%Y-%m-%d-%H-%M-%S"))
+            "\\{0}_{1}.png".format(doc,time.strftime("%Y-%m-%d-%H-%M-%S"))
         try:
             self.driver.save_screenshot(filePath)
             Log().log_info("截屏成功，图片路径为{}".format(filePath))
