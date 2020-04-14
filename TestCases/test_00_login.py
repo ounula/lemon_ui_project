@@ -13,8 +13,8 @@ import pytest
 @pytest.mark.usefixtures("refresh_page")
 class TestLogin:
     Log().log_info('====================开始测试登录模块=====================')
-    def test_error_error(self):
-        assert 3==5
+    # def test_error_error(self):
+    #     assert 3==5
     #  异常用例 - 登录信息不正确 (大于11位，小于11位，空)    ddt
     @pytest.mark.parametrize("data",LD.phone_data)
     def test_login_user_errorUser(self,data,access_web):
