@@ -10,8 +10,8 @@ testdatas_dir = os.path.join(base_dir,"TestDatas")
 
 testcase_dir = os.path.join(base_dir,"TestCases")
 
-htmlreport_dir = os.path.join(base_dir,"Outputs\\reports")
+htmlreport_dir = os.path.join(base_dir,"Outputs/reports")
 
-logs_dir = os.path.join(base_dir,"Outputs\\logs")
+logs_dir = os.path.join(base_dir,"Outputs/logs")
 
-screenshot_dir = os.path.join(base_dir,"Outputs\\screenshots")
+screenshot_dir = os.path.join(base_dir,"Outputs/screenshots")

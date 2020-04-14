@@ -15,7 +15,7 @@ def pytest_configure(config):
         config.addinivalue_line("markers", markers)
 
 driver = None
-#声明fixture
+#声明fixture，测试类前/后置操作
 @pytest.fixture(scope="class")
 def access_web():
     global driver
@@ -25,12 +25,20 @@ def access_web():
     driver.get(CD.web_login_url)
     lg=LoginPage(driver)
     yield (driver,lg)#分割线；返回值
-    driver.quit()
     #后置操作
+    driver.quit()
 
+#声明fixture，用例前/后置操作
 @pytest.fixture()
 def refresh_page():
     #前置操作
     yield
     #后置操作
     driver.refresh()
+
+#声明fixture，会话前/后置操作
+@pytest.fixture(scope="session")
+def session_demo():
+    print("测试会话前置")
+    yield
+    print("测试会话后置")

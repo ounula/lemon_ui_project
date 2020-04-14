@@ -13,43 +13,21 @@ import pytest
 @pytest.mark.usefixtures("refresh_page")
 class TestLogin:
     Log().log_info('====================开始测试登录模块=====================')
-    # #测试类前置条件
-    # @classmethod
-    # def setUpClass(cls):
-    #     cls.driver = webdriver.Chrome()
-    #     cls.driver.get(CD.web_login_url)
-    #     cls.lg=LoginPage(cls.driver)
-    #     Log().log_info('====================开始测试登录模块=====================')
-    # #测试用例前置条件
-    # def setUp(self):
-    #     pass
-    #     #设置无头浏览器
-    #     # option=webdriver.ChromeOptions()
-    #     # option.headless = True
-    #     # self.driver = webdriver.Chrome(options=option)
-    #     # self.driver = webdriver.Chrome()
-    #     # self.driver.get(CD.web_login_url)
-    #     # self. lg=LoginPage(self.driver)
-    # #测试用例后置
-    # def tearDown(self):
-    #     self.driver.refresh()
-    #
-    # #测试类后置
-    # @classmethod
-    # def tearDownClass(cls):
-    #     cls.driver.quit()
+    def test_error_error(self):
+        assert 3==5
+    #  异常用例 - 登录信息不正确 (大于11位，小于11位，空)    ddt
+    @pytest.mark.parametrize("data",LD.phone_data)
+    def test_login_user_errorUser(self,data,access_web):
+        Log().log_info("**********异常用例：登录账号不正确**********")
+        access_web[1].login(data["user"],data["passwd"])
+        assert access_web[1].pleaseInputUser(),data["result"]
 
-    #异常用例 - 手机号码不正确 (大于11位，小于11位，空)    ddt
+    @pytest.mark.parametrize("data",LD.wrong_passwd_data)
+    def test_login_noExistUser_wrongPasswd(self,data,access_web):
+        Log().log_info("**********异常用例：登录密码不正确、无权限**********")
+        access_web[1].login(data["user"],data["passwd"])
+        assert access_web[1].noRegist_wrongPasswd(),data['result']
 
-    # def test_login_user_errorUser(self,data):
-    #     self.lg.login(data["user"],data["passwd"])
-    #     self.assertEqual(self.lg.pleaseInputUser(),data["result"])
-    #
-    #
-    # def test_login_noExistUser_wrongPasswd(self,data):
-    #     self.lg.login(data["user"],data["passwd"])
-    #     self.assertEqual(self.lg.noRegist_wrongPasswd(),data['result'])
-    #
 
     #正常用例 - 登陆成功
     @pytest.mark.login
