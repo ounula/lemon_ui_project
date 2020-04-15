@@ -3,8 +3,11 @@
 #time: 2020/4/12 14:19
 from selenium.webdriver.common.by import By
 class LoginPageLocator:
+    #用户名输入框
     name_text = (By.XPATH,'//input[@placeholder="请输入您的用户名"]')
+    #密码输入框
     pwd_text = (By.XPATH,'//input[@placeholder="请输入您的密码"]')
+    #登录按钮
     login_but = (By.XPATH,'//button[@class="el-button el-button--primary"]')
     #错误提示框-密码不足6位
     errMSG_6passwd =  (By.XPATH,'//div[contains(text(),"密码")]')
