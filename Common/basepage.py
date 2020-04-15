@@ -8,20 +8,22 @@ from selenium.webdriver.support.wait import WebDriverWait
 import time
 from Common.logger import Log
 from selenium import webdriver
+import win32con,win32gui
 #封装基本函数 - 执行日志、异常处理、失败截图
 #所有页面公共的部分
 class BasePage:
     def __init__(self,driver):
-        self.driver = driver
+        # self.driver = driver
+        self.driver = webdriver.Chrome()
     #等待元素可见
     def wait_eleVisible(self,locator,wait_times=30,poll_frequency=0.5,doc=""):
-        # ''''
-        # :param locator: 元素定位，元祖形式
-        # :param times: 最长等待时间
-        # :param poll_frequency: 轮询间隔
-        # :param doc: 模块名_页面名称_操作名称
-        # :return:
-        # '''
+        ''''
+        :param locator: 元素定位，元祖形式
+        :param times: 最长等待时间
+        :param poll_frequency: 轮询间隔
+        :param doc: 模块名_页面名称_操作名称
+        :return:
+        '''
         try:
             #开始等待时间
             start = time.time()
@@ -131,14 +133,49 @@ class BasePage:
         pass
 
     #iframe切换
-    def switch_iframe(self,ifirame_refernce):
+    def switch_iframe(self,frame_reference,type=0,doc=""):
+        try:
+            if type != 0:
+                Log.log_info("切换iframe:{0}成功,定位类型为:name、id".format(frame_reference))
+                self.driver.switch_to.frame(frame_reference)
+            else:
+                iframe_ele = self.get_element(frame_reference, doc=doc)
+                self.driver.switch_to.frame(iframe_ele)
+                Log.log_info("切换iframe:{0}成功，定位类型为:WebElement对象".format(frame_reference))
+        except:
+            Log().log_error("切换iframe失败！定位类型为:{0}，定位:{1}".format(type,frame_reference))
+            #  截图
+            self.save_screenshot(doc)
+            raise
+
+    #谷歌上传文书
+    def upload_file(self,file_path,doc):
+        Log().info("上传本地文书：{}".format(file_path))
+        time.sleep(5)
+        try:
+            #一级窗口（打开）
+            open_win = win32gui.FindWindow("#32770", "打开")
+            #二级窗口
+            combo_box_ex32 = win32gui.FindWindowEx(open_win, 0, "ComboBoxEx32", None)
+            #三级窗口
+            combo_box = win32gui.FindWindowEx(combo_box_ex32, 0, "ComboBox", None)
+            #四级窗口（文件名）
+            edit = win32gui.FindWindowEx(combo_box, 0, "Edit", None)
+            #二级窗口（打开）
+            button = win32gui.FindWindowEx(open_win, 0, "Button", "打开(&O)")
+            #操作
+            win32gui.SendMessage(edit, win32con.WM_SETTEXT, None, file_path)
+            win32gui.SendMessage(open_win, win32con.WM_COMMAND, 1, button)
+        except:
+            Log().exception("上传文书失败")
+            self.save_screenshot(doc=doc)
+            raise
+
+    #滚动条处理（移动到元素顶部和当前窗口顶端对齐）
+    def scroll_to_element(self,locator,doc=""):
+
         pass
 
-    #上传操作
-    def upload_file(self):
-        pass
-
-    #滚动条处理
     #窗口切换
 
 

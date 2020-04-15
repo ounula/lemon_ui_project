@@ -3,7 +3,6 @@
 # @Author : ZHH
 import logging
 import time
-import os
 from Common.dir_config import logs_dir
 
 class Log:
