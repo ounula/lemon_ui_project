@@ -82,6 +82,24 @@ class BasePage:
             self.save_screenshot(doc)
             raise
 
+    #查找元素元祖
+    def get_elements(self,locator,doc=""):
+        try:
+            #开始等待时间
+            start = time.time()
+            ele = self.driver.find_elements(*locator)
+            #结束等待的时间点
+            end = time.time()
+            #求差值
+            wait_time = round(end - start, 3)
+            Log().log_info("查找元素元祖:{0}成功，花费{1}秒".format(locator,wait_time))
+            return ele
+        except:
+            Log().log_error("查找元素元祖失败！定位:{}".format(locator))
+            #截图
+            self.save_screenshot(doc)
+            raise
+
     #点击操作
     def click_element(self,locator,doc=""):
         ele = self.get_element(locator,doc=doc)
@@ -151,7 +169,7 @@ class BasePage:
     #谷歌上传文书
     def upload_file(self,file_path,doc):
         Log().info("上传本地文书：{}".format(file_path))
-        time.sleep(5)
+        time.sleep(2)
         try:
             #一级窗口（打开）
             open_win = win32gui.FindWindow("#32770", "打开")
@@ -165,19 +183,33 @@ class BasePage:
             button = win32gui.FindWindowEx(open_win, 0, "Button", "打开(&O)")
             #操作
             win32gui.SendMessage(edit, win32con.WM_SETTEXT, None, file_path)
+            time.sleep(1)
             win32gui.SendMessage(open_win, win32con.WM_COMMAND, 1, button)
         except:
             Log().exception("上传文书失败")
-            self.save_screenshot(doc=doc)
+            self.save_screenshot(doc)
             raise
 
     #滚动条处理（移动到元素顶部和当前窗口顶端对齐）
     def scroll_to_element(self,locator,doc=""):
-
-        pass
+        Log.log_info("开始滚动条处理，定位元素:{}".format(locator))
+        try:
+            # 开始等待时间
+            start = time.time()
+            ele = self.get_element(locator, doc=doc)
+            #结束等待的时间点
+            end = time.time()
+            #求差值
+            wait_time = round(end - start, 3)
+            Log.log_info("滚动条处理成功，花费{}秒".format(wait_time))
+            self.driver.execute_script("arguments[0].scrollIntoView(false);",ele)
+            time.sleep(0.5)
+            Log.log_info("强制等待：0.5秒")
+        except:
+            Log.log_error("滚动条处理失败，定位：{}".format(locator))
+            self.save_screenshot(doc)
 
     #窗口切换
-
 
     #截图
     def save_screenshot(self,doc):
