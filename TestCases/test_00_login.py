@@ -10,22 +10,20 @@ from Common.logger import Log
 import pytest
 
 @pytest.mark.usefixtures("access_web")
+@pytest.mark.usefixtures("refresh_page")
 class TestLogin:
     Log().log_info('====================登录模块=====================')
 
-    @pytest.mark.usefixtures("clear_login_text")
     def test_login_user_noUser(self,access_web):
         Log().log_info("**********登录：异常场景   -   不填写用户名**********")
         access_web[1].login(LD.no_user_data["用户名"],LD.no_user_data["密码"])
         assert access_web[1].pleaseInputUser(),LD.no_user_data["预期"]
 
-    @pytest.mark.usefixtures("clear_login_text")
     def test_wrong_user_passwd(self, access_web):
         Log().log_info("**********登录：异常场景   -   账号或密码错误**********")
         access_web[1].login(LD.wrong_passwd_data["用户名"], LD.wrong_passwd_data["密码"])
         assert access_web[1].user_passwd_erro(),LD.wrong_passwd_data["预期"]
 
-    @pytest.mark.usefixtures("clear_login_text")
     @pytest.mark.parametrize("data",LD.no_passwd_data)
     def test_login_noExistUser_wrongPasswd(self,data,access_web):
         Log().log_info("**********登录：异常场景   -   不填写密码、密码不足6位**********")
