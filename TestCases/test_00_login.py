@@ -13,12 +13,13 @@ import pytest
 class TestLogin:
     Log().log_info('====================登录模块=====================')
 
+    @pytest.mark.usefixtures("refresh_page")
     def test_login_user_noUser(self,data,access_web):
         Log().log_info("**********登录：异常场景   -   不填写用户名**********")
         access_web[1].login(LD.no_user_data["用户名"],LD.no_user_data["密码"])
         assert access_web[1].pleaseInputUser(),data["预期"]
 
-    @pytest.mark.usefixtures("refresh_page")
+    @pytest.mark.usefixtures("clear_login_text")
     def test_wrong_user_passwd(self, data, access_web):
         Log().log_info("**********登录：异常场景   -   账号或密码错误**********")
         access_web[1].login(LD.no_user_data["用户名"], LD.no_user_data["密码"])

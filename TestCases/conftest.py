@@ -5,8 +5,10 @@ import pytest
 from selenium import webdriver
 from PageObjects.login_p import LoginPage
 from PageObjects.index_p import IndexPage
+from Common.basepage import BasePage
 from TestDatas import common_datas as CD
 from TestDatas import login_datas as LD
+from PageLocators.loginpage_locator import LoginPageLocator
 
 #pytest.mark
 def pytest_configure(config):
@@ -35,6 +37,13 @@ def refresh_page():
     yield
     #后置操作
     driver.refresh()
+
+@pytest.fixture()
+def clear_login_text():
+    yield
+    doc ="清除元素文本"
+    BasePage().clear_text(driver,LoginPageLocator.name_text,doc=doc)
+    BasePage().clear_text(driver,LoginPageLocator.pwd_text,doc=doc)
 
 #声明fixture，会话前/后置操作
 @pytest.fixture(scope="session")
