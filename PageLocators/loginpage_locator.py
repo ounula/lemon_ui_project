@@ -10,5 +10,5 @@ class LoginPageLocator:
     errMSG_6passwd =  (By.XPATH,'//div[contains(text(),"至少6位数的密码")]')
     #错误提示框-请输入账号
     errMSG_no_input_user = (By.XPATH,'//div[contains(text(),"请输入账号")]')
-    #人机验证
-    rebot_forbid =(By.ID,'//div[@id="nc_1__scale_text"]')
+    #错误提示信息-账号密码错误
+    errorMSG_error_user_passwd =(By.XPATH,'//p[contains(text(),"用户名或密码是否正确")]')

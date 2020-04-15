@@ -126,8 +126,8 @@ class BasePage:
 
     #清空输入内容
     def clear_text(self,locator,doc=""):
-        ele = self.get_element(locator)
         try:
+            ele = self.get_element(locator)
             ele.clear()
             Log().info("清空元素文本成功，定位:{}".format(locator))
         except:
