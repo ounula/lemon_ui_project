@@ -129,9 +129,9 @@ class BasePage:
         try:
             ele = self.get_element(locator)
             ele.clear()
-            Log().info("清空元素文本成功，定位:{}".format(locator))
+            Log().log_info("清空元素文本成功，定位:{}".format(locator))
         except:
-            Log().exception("文本清空失败！定位:{}".format(locator))
+            Log().log_error("文本清空失败！定位:{}".format(locator))
             self.save_screenshot(doc)
             raise
 

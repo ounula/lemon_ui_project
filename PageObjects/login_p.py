@@ -30,5 +30,5 @@ class LoginPage(BasePage):
 
     def user_passwd_erro(self):
         doc = "错误提示框-账号或密码输入错误"
-        self.wait_eleVisible(loc.rebot_forbid,doc=doc)
+        self.wait_eleVisible(loc.errorMSG_error_user_passwd,doc=doc)
         return self.get_text(loc.errorMSG_error_user_passwd,doc=doc)

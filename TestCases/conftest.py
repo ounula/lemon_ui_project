@@ -42,8 +42,8 @@ def refresh_page():
 def clear_login_text():
     yield
     doc ="清除元素文本"
-    BasePage().clear_text(LoginPageLocator.name_text,doc=doc)
-    BasePage().clear_text(LoginPageLocator.pwd_text,doc=doc)
+    BasePage(driver).clear_text(LoginPageLocator.name_text,doc=doc)
+    BasePage(driver).clear_text(LoginPageLocator.pwd_text,doc=doc)
 
 #声明fixture，会话前/后置操作
 @pytest.fixture(scope="session")
