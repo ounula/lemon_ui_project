@@ -17,18 +17,18 @@ class LoginPage(BasePage):
         self.input_text(loc.name_text,username,doc)
         self.input_text(loc.pwd_text,password,doc)
         self.click_element(loc.login_but,doc)
-        # 判断是否勾选保存用户名
-        if not remember_user:
-            self.click_element(loc.remember_me,doc)
 
-    #获取用户名下方错误提示信息
     def pleaseInputUser(self):
-        doc = "登录页面_登录区域错误提示"
-        self.wait_eleVisible(loc.errMSG_loginArea,doc=doc)
-        return self.get_text(loc.errMSG_loginArea,doc=doc)
+        doc = "错误提示框-请输入账号"
+        self.wait_eleVisible(loc.errMSG_no_input_user,doc=doc)
+        return self.get_text(loc.errMSG_no_input_user,doc=doc)
 
-    #获取页面正中错误提示信息
-    def noRegist_wrongPasswd(self):
-        doc = "登录页面_中间区域错误提示"
-        self.wait_eleVisible(loc.errMSG_midArea,doc=doc)
-        return self.get_text(loc.errMSG_midArea,doc=doc)
+    def passwd_noSix(self):
+        doc = "错误提示框-请输入密码_密码不足6位"
+        self.wait_eleVisible(loc.errMSG_6passwd,doc=doc)
+        return self.get_text(loc.errMSG_6passwd,doc=doc)
+
+    def user_passwd_erro(self):
+        doc = "账号或密码输入错误，采取人机校验"
+        self.wait_eleVisible(loc.rebot_forbid,doc=doc)
+        return self.get_element(loc.rebot_forbid,doc=doc)

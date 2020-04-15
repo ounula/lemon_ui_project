@@ -6,5 +6,5 @@ from selenium.webdriver.common.by import By
 class HomePageLocator:
     # 抢投标
     qiangTB=(By.XPATH,'//a[@class="btn btn-special"]')
-    #登出
-    logOut=(By.XPATH,'//a[@href="/Index/logout.html"]')
+    #注销
+    logOut=(By.XPATH,'//span[text()="注销"]')

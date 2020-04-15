@@ -3,18 +3,16 @@
 #time: 2020/4/12 8:25
 
 #正常场景
-success_data = {"user":"18684720553","passwd":"python"}
+success_data = {"user":"zhh","passwd":"75867586"}
 
-#异常用例   -   号码格式错(大于11位，小于11位，为空，不存在的号码段)
-phone_data = [
-    {"user":"186847205538","passwd":"python","result":"请输入正确的手机号"},
-    {"user":"18684720","passwd":"python","result":"请输入正确的手机号"},
-    {"user":"","passwd":"python","result":"请输入手机号"},
-    {"user": "11184742666", "passwd": "python", "result": "请输入正确的手机号"}
-]
+#异常场景   -   不填写用户名
+no_user_data = {"用户名":"","密码":"python","预期":"请输入账号"}
 
-#异常用例 - 号码未注册或密码错误
-wrong_passwd_data = [
-    {"user":"17712857416","passwd":"python","result":"此账号没有经过授权，请联系管理员!"},
-    {"user":"18684720553","passwd":"python321","result":"帐号或密码错误!"}
-]
+#异常场景   -   不填写密码、密码不足6位
+no_passwd_data=[
+                            {"用户名":"zhuhonghao","密码":"","预期":"请输入密码"},
+                            {"用户名":"dsadsadsa","密码":"pytho","预期":"请输入至少6位数的密码"}
+                            ]
+
+#异常场景   -   账号或密码错误
+wrong_passwd_data = {"用户名":"18684720553","密码":"python321"}

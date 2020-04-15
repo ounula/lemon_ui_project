@@ -10,28 +10,30 @@ from Common.logger import Log
 import pytest
 
 @pytest.mark.usefixtures("access_web")
-@pytest.mark.usefixtures("refresh_page")
 class TestLogin:
-    Log().log_info('====================开始测试登录模块=====================')
-    # def test_error_error(self):
-    #     assert 3==5
-    #  异常用例 - 登录信息不正确 (大于11位，小于11位，空)    ddt
-    @pytest.mark.parametrize("data",LD.phone_data)
-    def test_login_user_errorUser(self,data,access_web):
-        Log().log_info("**********异常用例：登录账号不正确**********")
-        access_web[1].login(data["user"],data["passwd"])
-        assert access_web[1].pleaseInputUser(),data["result"]
+    Log().log_info('====================登录模块=====================')
 
-    @pytest.mark.parametrize("data",LD.wrong_passwd_data)
+    def test_login_user_noUser(self,data,access_web):
+        Log().log_info("**********登录：异常场景   -   不填写用户名**********")
+        access_web[1].login(LD.no_user_data["用户名"],LD.no_user_data["密码"])
+        assert access_web[1].pleaseInputUser(),data["预期"]
+
+    @pytest.mark.usefixtures("refresh_page")
+    def test_wrong_user_passwd(self, data, access_web):
+        Log().log_info("**********登录：异常场景   -   账号或密码错误**********")
+        access_web[1].login(LD.no_user_data["用户名"], LD.no_user_data["密码"])
+        assert access_web[1].user_passwd_erro()
+
+    @pytest.mark.parametrize("data",LD.no_passwd_data)
     def test_login_noExistUser_wrongPasswd(self,data,access_web):
-        Log().log_info("**********异常用例：登录密码不正确、无权限**********")
-        access_web[1].login(data["user"],data["passwd"])
-        assert access_web[1].noRegist_wrongPasswd(),data['result']
+        Log().log_info("**********登录：异常场景   -   不填写密码、密码不足6位**********")
+        access_web[1].login(data["用户名"],data["密码"])
+        assert access_web[1].noRegist_wrongPasswd(),data['预期']
 
 
     #正常用例 - 登陆成功
     @pytest.mark.login
     def test_login_success(self,access_web):#fixture函数作为参数，接收fixture返回值\
-        Log().log_info("**********登录用例：正常场景：使用正确的用户名和密码登录**********")
+        Log().log_info("**********登录：正常场景**********")
         access_web[1].login(LD.success_data["user"],LD.success_data["passwd"])
         assert IndexPage(access_web[0]).isExist_logout_ele()

@@ -13,8 +13,8 @@ import win32con,win32gui
 #所有页面公共的部分
 class BasePage:
     def __init__(self,driver):
-        # self.driver = driver
-        self.driver = webdriver.Chrome()
+        self.driver = driver
+        # self.driver = webdriver.Chrome()
     #等待元素可见
     def wait_eleVisible(self,locator,wait_times=30,poll_frequency=0.5,doc=""):
         ''''
