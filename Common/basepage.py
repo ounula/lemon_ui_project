@@ -220,6 +220,15 @@ class BasePage:
             Log.log_error("滚动条处理失败，定位：{}".format(locator))
             self.save_screenshot(doc)
 
+    #取消read-only属性
+    def cancel_readOnly(self,locator,doc=""):
+        ele = self.get_element(locator,doc=doc)
+        try:
+            self.driver.execute_script("arguments[0].readOnly;", ele)
+            Log.log_info("去除元素只读属性:{}".format(locator))
+        except:
+            Log.log_error("去除元素只读属性失败，定位：{}".format(locator))
+            raise
     #窗口切换
 
     #截图

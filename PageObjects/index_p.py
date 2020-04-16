@@ -19,7 +19,8 @@ class IndexPage(BasePage):
         return self.get_element(loc.logOut,doc=doc)
 
     def select_first_bid(self):
-        doc="新建普通送达"
+        doc="菜单选择普通送达"
+        self.wait_eleVisible(loc.ptsd)
         pass
     #随机选标
     def select_random_bid(self):

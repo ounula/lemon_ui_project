@@ -17,7 +17,9 @@ def pytest_configure(config):
         config.addinivalue_line("markers", markers)
 
 driver = None
+driver=webdriver.Chrome()
 #声明fixture，测试类前/后置操作
+#类：前置开启登录页面，后置关闭浏览器
 @pytest.fixture(scope="class")
 def access_web():
     global driver
@@ -30,20 +32,24 @@ def access_web():
     #后置操作
     driver.quit()
 
-#声明fixture，用例前/后置操作
+#用例：后置刷新
 @pytest.fixture()
 def refresh_page():
-    #前置操作
     yield
-    #后置操作
     driver.refresh()
 
+#用例：后置后退
 @pytest.fixture()
-def clear_login_text():
+def back_page():
     yield
-    doc ="清除元素文本"
-    BasePage(driver).clear_text(LoginPageLocator.name_text,doc=doc)
-    BasePage(driver).clear_text(LoginPageLocator.pwd_text,doc=doc)
+    driver.back()
+
+@pytest.mark.usefixtures(access_web)
+@pytest.fixture(scope="class")
+def loggin_success(access_web):
+    access_web[1].login(LD.success_data["用户名"],LD.success_data["密码"])
+    yield
+    driver.quit()
 
 #声明fixture，会话前/后置操作
 @pytest.fixture(scope="session")
