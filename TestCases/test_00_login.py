@@ -35,5 +35,5 @@ class TestLogin:
     @pytest.mark.login
     def test_login_success(self,access_web):#fixture函数作为参数，接收fixture返回值\
         Log().log_info("**********登录：正常场景**********")
-        access_web[1].login(LD.success_data["user"],LD.success_data["passwd"])
+        access_web[1].login(LD.success_data["用户名"],LD.success_data["密码"])
         assert IndexPage(access_web[0]).isExist_logout_ele()

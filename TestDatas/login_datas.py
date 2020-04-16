@@ -3,7 +3,7 @@
 #time: 2020/4/12 8:25
 
 #正常场景
-success_data = {"user":"zhh","passwd":"123456"}
+success_data = {"用户名":"zhh","密码":"123456"}
 
 #异常场景   -   不填写用户名
 no_user_data = {"用户名":"","密码":"python","预期":"请输入账号"}
