@@ -4,6 +4,8 @@
 from selenium.webdriver.common.by import By
 
 class CreatePtsdLocator:
+    #案件基本信息标题
+    title = (By.XPATH,'//h3[text()="案件基本信息"]')
     #案号年份
     ah_year = (By.XPATH,'//input[contains(@placeholder,"请选择年份")]')
     #选择年份

@@ -9,19 +9,19 @@ from selenium.webdriver.common.by import By
 from Common.logger import Log
 from Common.basepage import BasePage
 class IndexPage(BasePage):
-    # def __init__(self,driver):
-    #     self.driver=driver
-    #     self.driver=webdriver.Chrome()
-
     def isExist_logout_ele(self):
-        doc="主页注销按钮"
+        doc = "主页注销按钮存在"
         self.wait_eleVisible(loc.logOut,doc=doc)
         return self.get_element(loc.logOut,doc=doc)
 
+    def click_logout(self):
+        doc = "点击注销按钮"
+        self.click_element(loc.logOut,doc=doc)
+
     def select_first_bid(self):
         doc="菜单选择普通送达"
-        self.wait_eleVisible(loc.ptsd)
-        pass
+        self.click_element(loc.ptsd,doc=doc)
+
     #随机选标
     def select_random_bid(self):
         eles=self.driver.find_elements()

@@ -1,16 +1,12 @@
 # -*- coding: UTF-8 –*-
 #author: zhh
 #time: 2020/4/12 0:00
-from selenium import webdriver
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.common.by import By
 from PageLocators.loginpage_locator import LoginPageLocator as loc
 from Common.basepage import BasePage
 
 class LoginPage(BasePage):
     #登录
-    def login(self,username,password,remember_user=True):
+    def login(self,username,password):
         #输入用户名、密码，点击登录
         doc = "登录页面_登录功能"
         self.wait_eleVisible(loc.name_text)

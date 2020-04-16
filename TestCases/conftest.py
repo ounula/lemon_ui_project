@@ -17,7 +17,7 @@ def pytest_configure(config):
         config.addinivalue_line("markers", markers)
 
 driver = None
-driver=webdriver.Chrome()
+# driver=webdriver.Chrome()
 #声明fixture，测试类前/后置操作
 #类：前置开启登录页面，后置关闭浏览器
 @pytest.fixture(scope="class")
@@ -46,7 +46,7 @@ def back_page():
 
 @pytest.mark.usefixtures(access_web)
 @pytest.fixture(scope="class")
-def loggin_success(access_web):
+def login_success(access_web):
     access_web[1].login(LD.success_data["用户名"],LD.success_data["密码"])
     yield
     driver.quit()

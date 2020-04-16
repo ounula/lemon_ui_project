@@ -64,6 +64,31 @@ class BasePage:
             self.save_screenshot(doc)
             raise
 
+    #等待元素元祖存在
+    def wait_elementsPresent(self,locator,wait_times=20,poll_frequency=0.5,doc=""):
+        '''
+
+        :param locator: 元素定位，元祖形式
+        :param times: 最长等待时间
+        :param poll_frequency: 轮询间隔
+        :param doc: 模块名_页面名称_操作名称
+        :return:
+        '''
+        try:
+            # 开始等待时间
+            start = time.time()
+            WebDriverWait(self.driver,wait_times, poll_frequency).until(EC.presence_of_all_elements_located((locator)))
+            # 结束等待的时间点
+            end = time.time()
+            # 求差值
+            wait_time = round(end - start, 3)
+            Log().log_info("{0}}，花费{1}秒".format(doc,wait_time))
+        except:
+            Log().log_error("页面加载超时！定位元素失败:{}".format(locator))
+            # 截图
+            self.save_screenshot(doc)
+            raise
+
     #查找元素
     def get_element(self,locator,doc=""):
         try:
@@ -229,6 +254,7 @@ class BasePage:
         except:
             Log.log_error("去除元素只读属性失败，定位：{}".format(locator))
             raise
+
     #窗口切换
 
     #截图
