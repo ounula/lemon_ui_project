@@ -18,10 +18,7 @@ class IndexPage(BasePage):
         doc = "点击注销按钮"
         self.click_element(loc.logOut,doc=doc)
 
-    def select_first_bid(self):
-        doc="菜单选择普通送达"
+    def click_ptsd(self):
+        doc="点击菜单栏普通送达"
+        self.wait_eleVisible(loc.ptsd)
         self.click_element(loc.ptsd,doc=doc)
-
-    #随机选标
-    def select_random_bid(self):
-        eles=self.driver.find_elements()

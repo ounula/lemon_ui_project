@@ -44,11 +44,15 @@ def back_page():
     yield
     driver.back()
 
-@pytest.mark.usefixtures(access_web)
 @pytest.fixture(scope="class")
-def login_success(access_web):
-    access_web[1].login(LD.success_data["用户名"],LD.success_data["密码"])
-    yield
+def login_success():
+    global driver
+    # 前置操作
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    driver.get(CD.web_login_url)
+    LoginPage(driver).login(LD.success_data["用户名"],LD.success_data["密码"])
+    yield driver
     driver.quit()
 
 #声明fixture，会话前/后置操作

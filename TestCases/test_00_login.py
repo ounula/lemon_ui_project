@@ -15,7 +15,6 @@ class TestLogin:
     Log().log_info('====================登录模块=====================')
 
     def test_login_user_noUser(self,access_web):
-        Log().log_info("**********登录：异常场景   -   不填写用户名**********")
         access_web[1].login(LD.no_user_data["用户名"],LD.no_user_data["密码"])
         assert access_web[1].pleaseInputUser(),LD.no_user_data["预期"]
 

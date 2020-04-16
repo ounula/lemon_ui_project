@@ -2,13 +2,17 @@
 # @Time : 2020/4/16 17:34 
 # @Author : ZHH
 from selenium import webdriver
-from PageObjects.login_p import LoginPage
+from PageObjects.ptsdList_p import PtsdList
 from PageObjects.index_p import IndexPage
-from TestDatas import common_datas as CD
-from TestDatas import login_datas as LD
 from Common.logger import Log
+from PageLocators.index_locator import IndexLocator
 import pytest
 
-@pytest.mark.usefixtures("loggin_success")
+@pytest.mark.usefixtures("login_success")
 class TestIndexPage:
-    Log().log_info('====================主页菜单、登出=====================')
+    Log().log_info('====================主页菜单=====================')
+
+    def test_click_into_ptsd(self,login_success):
+        Log().log_info("**********主页：正常场景   -   点击二级菜单<普通送达>进入对应页面**********")
+        IndexPage(login_success).click_ptsd()
+        assert PtsdList(login_success).list_exist()

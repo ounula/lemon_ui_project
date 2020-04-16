@@ -6,8 +6,9 @@ from Common.basepage import BasePage
 
 class PtsdList(BasePage):
     def list_exist(self):
-        doc = "刷新普通送达列表"
+        doc = "普通送达列表"
         self.wait_elementsPresent(loc.ptsd_data,doc=doc)
+        return self.get_elements(loc.ptsd_data,doc=doc)
 
 
     def new_ptsd(self):

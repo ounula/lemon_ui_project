@@ -9,3 +9,7 @@ class PtsdList:
     no_data_now = (By.XPATH,'//div[@class="el-table__empty-block"]')
     #列表数据
     ptsd_data = (By.XPATH,'//tr[@class="el-table__row"]')
+    #下载回证
+    down_re = (By.XPATH,'//span[text()="查询"]')
+    #受送达人标题
+    ssdr_titile = (By.XPATH,'//h3[text()="受送达人信息"]')
