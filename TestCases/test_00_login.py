@@ -30,7 +30,6 @@ class TestLogin:
         access_web[1].login(data["用户名"],data["密码"])
         assert access_web[1].passwd_noSix(),data['预期']
 
-
     #正常用例 - 登陆成功
     @pytest.mark.login
     def test_login_success(self,access_web):#fixture函数作为参数，接收fixture返回值\
