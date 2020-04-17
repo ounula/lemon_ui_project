@@ -82,7 +82,7 @@ class BasePage:
             end = time.time()
             # 求差值
             wait_time = round(end - start, 3)
-            Log().log_info("{0}}，花费{1}秒".format(doc,wait_time))
+            Log().log_info("{0}，花费{1}秒".format(doc,wait_time))
         except:
             Log().log_error("页面加载超时！定位元素失败:{}".format(locator))
             # 截图
