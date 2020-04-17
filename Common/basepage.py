@@ -8,15 +8,18 @@ from selenium.webdriver.support.wait import WebDriverWait
 import time
 from Common.logger import Log
 from selenium import webdriver
-import win32con,win32gui
-#封装基本函数 - 执行日志、异常处理、失败截图
-#所有页面公共的部分
+import win32con, win32gui
+
+
+# 封装基本函数 - 执行日志、异常处理、失败截图
+# 所有页面公共的部分
 class BasePage:
-    def __init__(self,driver):
+    def __init__(self, driver):
         self.driver = driver
         # self.driver = webdriver.Chrome()
-    #等待元素可见
-    def wait_eleVisible(self,locator,wait_times=30,poll_frequency=0.5,doc=""):
+
+    # 等待元素可见
+    def wait_eleVisible(self, locator, wait_times=30, poll_frequency=0.5, doc=""):
         ''''
         :param locator: 元素定位，元祖形式
         :param times: 最长等待时间
@@ -25,22 +28,22 @@ class BasePage:
         :return:
         '''
         try:
-            #开始等待时间
+            # 开始等待时间
             start = time.time()
-            WebDriverWait(self.driver, wait_times,poll_frequency).until(EC.visibility_of_element_located((locator[1])))
-            #结束等待的时间点
+            WebDriverWait(self.driver, wait_times, poll_frequency).until(EC.visibility_of_element_located((locator[1])))
+            # 结束等待的时间点
             end = time.time()
-            #求差值
-            wait_time = round(end-start,3)
-            Log().log_info("等待" + '"' + locator[0] + '"加载成功，花费{}秒'.format(wait_time))
+            # 求差值
+            wait_time = round(end - start, 3)
+            Log().log_info("等待" + '"' + locator[0] + '"加载成功，用时{}秒'.format(wait_time))
         except:
             Log().log_error("页面加载超时！判断依据:" + '"' + locator[0] + '"')
-            #截图
+            # 截图
             self.save_screenshot(doc)
             raise
 
-    #等待元素存在
-    def wait_elePresent(self,locator,wait_times=20,poll_frequency=0.5,doc=""):
+    # 等待元素存在
+    def wait_elePresent(self, locator, wait_times=20, poll_frequency=0.5, doc=""):
         '''
 
         :param locator: 元素定位，元祖形式
@@ -52,20 +55,20 @@ class BasePage:
         try:
             # 开始等待时间
             start = time.time()
-            WebDriverWait(self.driver,wait_times, poll_frequency).until(EC.presence_of_element_located((locator[1])))
+            WebDriverWait(self.driver, wait_times, poll_frequency).until(EC.presence_of_element_located((locator[1])))
             # 结束等待的时间点
             end = time.time()
             # 求差值
             wait_time = round(end - start, 3)
-            Log().log_info("等待" + '"' + locator[0] + '"加载成功，花费{}秒'.format(wait_time))
+            Log().log_info("等待" + '"' + locator[0] + '"加载成功，用时{}秒'.format(wait_time))
         except:
             Log().log_error("页面加载超时！判断依据:" + '"' + locator[0] + '"')
             # 截图
             self.save_screenshot(doc)
             raise
 
-    #等待元素元祖存在
-    def wait_elementsPresent(self,locator,wait_times=20,poll_frequency=0.5,doc=""):
+    # 等待元素元祖存在
+    def wait_elementsPresent(self, locator, wait_times=20, poll_frequency=0.5, doc=""):
         '''
 
         :param locator: 元素定位，元祖形式
@@ -77,104 +80,105 @@ class BasePage:
         try:
             # 开始等待时间
             start = time.time()
-            WebDriverWait(self.driver,wait_times, poll_frequency).until(EC.presence_of_all_elements_located((locator[1])))
+            WebDriverWait(self.driver, wait_times, poll_frequency).until(
+                EC.presence_of_all_elements_located((locator[1])))
             # 结束等待的时间点
             end = time.time()
             # 求差值
             wait_time = round(end - start, 3)
-            Log().log_info("等待" + '"' + locator[0] + '"加载成功，花费{}秒'.format(wait_time))
+            Log().log_info("等待" + '"' + locator[0] + '"加载成功，用时{}秒'.format(wait_time))
         except:
             Log().log_error("页面加载超时！判断依据:" + '"' + locator[0] + '"')
             # 截图
             self.save_screenshot(doc)
             raise
 
-    #查找元素
-    def get_element(self,locator,doc=""):
+    # 查找元素
+    def get_element(self, locator, doc=""):
         try:
-            #开始等待时间
+            # 开始等待时间
             start = time.time()
             ele = self.driver.find_element(*locator[1])
-            #结束等待的时间点
+            # 结束等待的时间点
             end = time.time()
-            #求差值
+            # 求差值
             wait_time = round(end - start, 3)
-            Log().log_info("定位" + '"' + locator[0] + '"成功，花费{}秒'.format(wait_time))
+            Log().log_info("定位" + '"' + locator[0] + '"成功，用时{}秒'.format(wait_time))
             return ele
         except:
             Log().log_error("定位" + '"' + locator[0] + '"失败')
-            #截图
+            # 截图
             self.save_screenshot(doc)
             raise
 
-    #查找元素元祖
-    def get_elements(self,locator,doc=""):
+    # 查找元素元祖
+    def get_elements(self, locator, doc=""):
         try:
-            #开始等待时间
+            # 开始等待时间
             start = time.time()
             ele = self.driver.find_elements(*locator[1])
-            #结束等待的时间点
+            # 结束等待的时间点
             end = time.time()
-            #求差值
+            # 求差值
             wait_time = round(end - start, 3)
-            Log().log_info("定位" + '"' + locator[0] + '"成功，花费{}秒'.format(wait_time))
+            Log().log_info("定位" + '"' + locator[0] + '"成功，用时{}秒'.format(wait_time))
             return ele
         except:
             Log().log_error("定位" + '"' + locator[0] + '"失败')
-            #截图
+            # 截图
             self.save_screenshot(doc)
             raise
 
-    #点击操作
-    def click_element(self,locator,doc=""):
-        ele = self.get_element(locator,doc=doc)
+    # 点击操作
+    def click_element(self, locator, doc=""):
+        ele = self.get_element(locator, doc=doc)
         try:
             ele.click()
             Log().log_info("点击：{0}".format(locator[0]))
         except:
-            Log().log_error("点击"+locator[0]+"失败！")
+            Log().log_error("点击" + locator[0] + "失败！")
             #  截图
             self.save_screenshot(doc)
             raise
 
-    #输入操作
-    def input_text(self,locator,text,doc=""):
-        ele = self.get_element(locator,doc=doc)
+    # 输入操作
+    def input_text(self, locator, text, doc=""):
+        ele = self.get_element(locator, doc=doc)
         try:
             ele.send_keys(text)
-            Log().log_info('向"'+locator[0]+'"输入内容:{}'.format(text))
+            Log().log_info('向"' + locator[0] + '"输入内容:{}'.format(text))
         except:
-            Log().log_info('向"'+locator[0]+'"输入内容:{}失败！'.format(text))
+            Log().log_info('向"' + locator[0] + '"输入内容:{}失败！'.format(text))
             #  截图
             self.save_screenshot(doc)
             raise
 
-    #清空输入内容
-    def clear_text(self,locator,doc=""):
+    # 清空输入内容
+    def clear_text(self, locator, doc=""):
         try:
             ele = self.get_element(locator)
             ele.clear()
-            Log().log_info('清空"'+locator[0]+'"文本')
+            Log().log_info('清空"' + locator[0] + '"文本')
         except:
-            Log().log_info('清空"'+locator[0]+'"文本失败！')
+            Log().log_info('清空"' + locator[0] + '"文本失败！')
             self.save_screenshot(doc)
             raise
 
-    #获取元素的文本内容
-    def get_text(self,locator,doc=""):
+    # 获取元素的文本内容
+    def get_text(self, locator, doc=""):
         try:
             ele = self.get_element(locator, doc=doc)
-            text=ele.text
-            Log().log_info('获取"'+locator[0]+'"文本，内容为:{}'.format(text))
+            text = ele.text
+            Log().log_info('获取"' + locator[0] + '"文本，内容为:{}'.format(text))
             return text
         except:
-            Log().log_info('获取"'+locator[0]+'"文本内容失败！')
+            Log().log_info('获取"' + locator[0] + '"文本内容失败！')
             #  截图
             self.save_screenshot(doc)
             raise
 
-    #获取元素属性
-    def get_element_attribute(self,locator,attr,doc=""):
+    # 获取元素属性
+    def get_element_attribute(self, locator, attr, doc=""):
         ele = self.get_element(locator, doc=doc)
         try:
             return ele.get_attribute(attr)
@@ -184,25 +188,25 @@ class BasePage:
             self.save_screenshot(doc)
             raise
 
-    #alert处理
-    def alert_action(self,action="accept"):
+    # alert处理
+    def alert_action(self, action="accept"):
         pass
 
-    #谷歌上传文书
-    def upload_file(self,file_path,doc):
+    # 谷歌上传文书
+    def upload_file(self, file_path, doc):
         time.sleep(2)
         try:
-            #一级窗口（打开）
+            # 一级窗口（打开）
             open_win = win32gui.FindWindow("#32770", "打开")
-            #二级窗口
+            # 二级窗口
             combo_box_ex32 = win32gui.FindWindowEx(open_win, 0, "ComboBoxEx32", None)
-            #三级窗口
+            # 三级窗口
             combo_box = win32gui.FindWindowEx(combo_box_ex32, 0, "ComboBox", None)
-            #四级窗口（文件名）
+            # 四级窗口（文件名）
             edit = win32gui.FindWindowEx(combo_box, 0, "Edit", None)
-            #二级窗口（打开）
+            # 二级窗口（打开）
             button = win32gui.FindWindowEx(open_win, 0, "Button", "打开(&O)")
-            #操作
+            # 操作
             win32gui.SendMessage(edit, win32con.WM_SETTEXT, None, file_path)
             time.sleep(1)
             win32gui.SendMessage(open_win, win32con.WM_COMMAND, 1, button)
@@ -212,46 +216,45 @@ class BasePage:
             self.save_screenshot(doc)
             raise
 
-    #滚动条处理（移动到元素顶部和当前窗口顶端对齐）
-    def scroll_to_element(self,locator,doc=""):
+    # 滚动条处理（移动到元素顶部和当前窗口顶端对齐）
+    def scroll_to_element(self, locator, doc=""):
         Log.log_info("开始滚动条处理，拖动位置:{}".format(locator[0]))
         try:
             # 开始等待时间
             start = time.time()
             ele = self.get_element(locator, doc=doc)
-            #结束等待的时间点
+            # 结束等待的时间点
             end = time.time()
-            #求差值
+            # 求差值
             wait_time = round(end - start, 3)
-            Log.log_info("滚动条处理成功，花费{}秒".format(wait_time))
-            self.driver.execute_script("arguments[0].scrollIntoView(false);",ele)
+            Log.log_info("滚动条处理成功，用时{}秒".format(wait_time))
+            self.driver.execute_script("arguments[0].scrollIntoView(false);", ele)
             time.sleep(0.5)
             Log.log_info("强制等待：0.5秒")
         except:
             Log.log_error("滚动条处理失败，定位：{}".format(locator))
             self.save_screenshot(doc)
 
-    #取消read-only属性
-    def cancel_readOnly(self,locator,doc=""):
-        ele = self.get_element(locator,doc=doc)
+    # 取消read-only属性
+    def cancel_readOnly(self, locator, doc=""):
+        ele = self.get_element(locator, doc=doc)
         try:
             self.driver.execute_script("arguments[0].readOnly;", ele)
-            Log.log_info("去除元素只读属性:{}".format(locator))
+            Log.log_info('去除"' + locator[0] + '"只读属性')
         except:
-            Log.log_error("去除元素只读属性失败，定位：{}".format(locator))
+            Log.log_error('去除"' + locator[0] + '"只读属性失败！')
             raise
 
-    #窗口切换
+    # 窗口切换
 
-    #截图
-    def save_screenshot(self,doc):
-        #图片名称：模块名_页面名称_操作名称_年-月-日_时分秒.png
-        filePath = dir_config.screenshot_dir+\
-            "\\{0}_{1}.png".format(doc,time.strftime("%Y-%m-%d-%H-%M-%S"))
+    # 截图
+    def save_screenshot(self, doc):
+        # 图片名称：模块名_页面名称_操作名称_年-月-日_时分秒.png
+        filePath = dir_config.screenshot_dir + \
+                   "\\{0}_{1}.png".format(doc, time.strftime("%Y-%m-%d-%H-%M-%S"))
         try:
             self.driver.save_screenshot(filePath)
             Log().log_info("截屏成功，图片路径为{}".format(filePath))
         except:
             Log().log_info("截图失败")
         raise
-
