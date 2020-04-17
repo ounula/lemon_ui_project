@@ -27,14 +27,14 @@ class BasePage:
         try:
             #开始等待时间
             start = time.time()
-            WebDriverWait(self.driver, wait_times,poll_frequency).until(EC.visibility_of_element_located((locator)))
+            WebDriverWait(self.driver, wait_times,poll_frequency).until(EC.visibility_of_element_located((locator[1])))
             #结束等待的时间点
             end = time.time()
             #求差值
             wait_time = round(end-start,3)
-            Log().log_info("等待元素:{0}加载成功，花费{1}秒".format(locator,wait_time))
+            Log().log_info("等待" + '"' + locator[0] + '"加载成功，花费{}秒'.format(wait_time))
         except:
-            Log().log_error("页面加载超时！定位元素失败:{}".format(locator))
+            Log().log_error("页面加载超时！判断依据:" + '"' + locator[0] + '"')
             #截图
             self.save_screenshot(doc)
             raise
@@ -52,14 +52,14 @@ class BasePage:
         try:
             # 开始等待时间
             start = time.time()
-            WebDriverWait(self.driver,wait_times, poll_frequency).until(EC.presence_of_element_located((locator)))
+            WebDriverWait(self.driver,wait_times, poll_frequency).until(EC.presence_of_element_located((locator[1])))
             # 结束等待的时间点
             end = time.time()
             # 求差值
             wait_time = round(end - start, 3)
-            Log().log_info("等待元素:{0}加载成功，花费{1}秒".format(locator,wait_time))
+            Log().log_info("等待" + '"' + locator[0] + '"加载成功，花费{}秒'.format(wait_time))
         except:
-            Log().log_error("页面加载超时！定位元素失败:{}".format(locator))
+            Log().log_error("页面加载超时！判断依据:" + '"' + locator[0] + '"')
             # 截图
             self.save_screenshot(doc)
             raise
@@ -77,14 +77,14 @@ class BasePage:
         try:
             # 开始等待时间
             start = time.time()
-            WebDriverWait(self.driver,wait_times, poll_frequency).until(EC.presence_of_all_elements_located((locator)))
+            WebDriverWait(self.driver,wait_times, poll_frequency).until(EC.presence_of_all_elements_located((locator[1])))
             # 结束等待的时间点
             end = time.time()
             # 求差值
             wait_time = round(end - start, 3)
-            Log().log_info("{0}，花费{1}秒".format(doc,wait_time))
+            Log().log_info("等待" + '"' + locator[0] + '"加载成功，花费{}秒'.format(wait_time))
         except:
-            Log().log_error("页面加载超时！定位元素失败:{}".format(locator))
+            Log().log_error("页面加载超时！判断依据:" + '"' + locator[0] + '"')
             # 截图
             self.save_screenshot(doc)
             raise
@@ -94,15 +94,15 @@ class BasePage:
         try:
             #开始等待时间
             start = time.time()
-            ele = self.driver.find_element(*locator)
+            ele = self.driver.find_element(*locator[1])
             #结束等待的时间点
             end = time.time()
             #求差值
             wait_time = round(end - start, 3)
-            Log().log_info("查找元素:{0}成功，花费{1}秒".format(locator,wait_time))
+            Log().log_info("定位" + '"' + locator[0] + '"成功，花费{}秒'.format(wait_time))
             return ele
         except:
-            Log().log_error("查找元素失败！定位:{}".format(locator))
+            Log().log_error("定位" + '"' + locator[0] + '"失败')
             #截图
             self.save_screenshot(doc)
             raise
@@ -112,15 +112,15 @@ class BasePage:
         try:
             #开始等待时间
             start = time.time()
-            ele = self.driver.find_elements(*locator)
+            ele = self.driver.find_elements(*locator[1])
             #结束等待的时间点
             end = time.time()
             #求差值
             wait_time = round(end - start, 3)
-            Log().log_info("查找元素元祖:{0}成功，花费{1}秒".format(locator,wait_time))
+            Log().log_info("定位" + '"' + locator[0] + '"成功，花费{}秒'.format(wait_time))
             return ele
         except:
-            Log().log_error("查找元素元祖失败！定位:{}".format(locator))
+            Log().log_error("定位" + '"' + locator[0] + '"失败')
             #截图
             self.save_screenshot(doc)
             raise
@@ -130,9 +130,9 @@ class BasePage:
         ele = self.get_element(locator,doc=doc)
         try:
             ele.click()
-            Log().log_info("点击元素：{0}成功".format(locator))
+            Log().log_info("点击：{0}".format(locator[0]))
         except:
-            Log().log_error("元素点击操作失败！定位:{}".format(locator))
+            Log().log_error("点击"+locator[0]+"失败！")
             #  截图
             self.save_screenshot(doc)
             raise
@@ -142,9 +142,9 @@ class BasePage:
         ele = self.get_element(locator,doc=doc)
         try:
             ele.send_keys(text)
-            Log().log_info("输入内容成功，输入内容:{}".format(text))
+            Log().log_info('向"'+locator[0]+'"输入内容:{}'.format(text))
         except:
-            Log().log_error("输入操作失败！失败内容:{}".format(text))
+            Log().log_info('向"'+locator[0]+'"输入内容:{}失败！'.format(text))
             #  截图
             self.save_screenshot(doc)
             raise
@@ -154,19 +154,21 @@ class BasePage:
         try:
             ele = self.get_element(locator)
             ele.clear()
-            Log().log_info("清空元素文本成功，定位:{}".format(locator))
+            Log().log_info('清空"'+locator[0]+'"文本')
         except:
-            Log().log_error("文本清空失败！定位:{}".format(locator))
+            Log().log_info('清空"'+locator[0]+'"文本失败！')
             self.save_screenshot(doc)
             raise
 
     #获取元素的文本内容
     def get_text(self,locator,doc=""):
-        ele = self.get_element(locator, doc=doc)
         try:
-            return ele.text
+            ele = self.get_element(locator, doc=doc)
+            text=ele.text
+            Log().log_info('获取"'+locator[0]+'"文本，内容为:{}'.format(text))
+            return text
         except:
-            Log().log_info("获取元素文本失败！定位:{}".format(locator))
+            Log().log_info('获取"'+locator[0]+'"文本内容失败！')
             #  截图
             self.save_screenshot(doc)
             raise
@@ -186,25 +188,8 @@ class BasePage:
     def alert_action(self,action="accept"):
         pass
 
-    #iframe切换
-    def switch_iframe(self,frame_reference,type=0,doc=""):
-        try:
-            if type != 0:
-                Log.log_info("切换iframe:{0}成功,定位类型为:name、id".format(frame_reference))
-                self.driver.switch_to.frame(frame_reference)
-            else:
-                iframe_ele = self.get_element(frame_reference, doc=doc)
-                self.driver.switch_to.frame(iframe_ele)
-                Log.log_info("切换iframe:{0}成功，定位类型为:WebElement对象".format(frame_reference))
-        except:
-            Log().log_error("切换iframe失败！定位类型为:{0}，定位:{1}".format(type,frame_reference))
-            #  截图
-            self.save_screenshot(doc)
-            raise
-
     #谷歌上传文书
     def upload_file(self,file_path,doc):
-        Log().info("上传本地文书：{}".format(file_path))
         time.sleep(2)
         try:
             #一级窗口（打开）
@@ -221,14 +206,15 @@ class BasePage:
             win32gui.SendMessage(edit, win32con.WM_SETTEXT, None, file_path)
             time.sleep(1)
             win32gui.SendMessage(open_win, win32con.WM_COMMAND, 1, button)
+            Log().info("上传本地文书：{}".format(file_path))
         except:
-            Log().exception("上传文书失败")
+            Log().exception("上传文书失败！路径:{}".format(file_path))
             self.save_screenshot(doc)
             raise
 
     #滚动条处理（移动到元素顶部和当前窗口顶端对齐）
     def scroll_to_element(self,locator,doc=""):
-        Log.log_info("开始滚动条处理，定位元素:{}".format(locator))
+        Log.log_info("开始滚动条处理，拖动位置:{}".format(locator[0]))
         try:
             # 开始等待时间
             start = time.time()
