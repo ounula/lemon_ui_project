@@ -10,5 +10,8 @@ from Common.logger import Log
 import pytest
 
 
-class TestPtsdPage:
-    Log().log_info('====================新建普通送达=====================')
+# class TestPtsdPage:
+    # @pytest.mark.usefixtures("get_ptsd_page")
+    # def test_createPtsd_success(self,get_ptsd_page):
+
+

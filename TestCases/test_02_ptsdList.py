@@ -8,9 +8,10 @@ from TestDatas import login_datas as LD
 from Common.logger import Log
 import pytest
 
-@pytest.mark.usefixtures("loggin_success")
+@pytest.mark.usefixtures("get_ptsd_page")
+@pytest.mark.usefixtures("back_page")
 class TestPtsdPage:
-    Log().log_info('====================普通送达=====================')
+    def test_clickNewPtsd(self,get_ptsd_page):
+        Log().log_info("**********普通送达列表：正常场景   -   点击新建普通送达打开对应页面**********")
+        PtsdList(get_ptsd_page).
 
-    # @pytest.mark.usefixtures("back_page")
-    # def test_clickNewPtsd(self):
