@@ -6,6 +6,7 @@ from selenium import webdriver
 
 from PageObjects.index_p import IndexPage
 from PageObjects.login_p import LoginPage
+from PageObjects.createPtsd_p import CreatePtsd
 from TestDatas import common_datas as CD
 from TestDatas import login_datas as LD
 
@@ -61,7 +62,7 @@ def login_success():
     yield driver
     driver.quit()
 
-
+@pytest.fixture(scope="class")
 def get_ptsd_page():
     global driver
     # 前置操作
@@ -73,6 +74,19 @@ def get_ptsd_page():
     yield driver
     driver.quit()
 
+@pytest.fixture(scope="class")
+def into_create_ptsd_page():
+    global driver
+    # 前置操作
+    driver = webdriver.Chrome()
+    driver.maximize_window()
+    driver.get(CD.web_login_url)
+    LoginPage(driver).login(LD.success_data["用户名"], LD.success_data["密码"])
+    IndexPage(driver).click_ptsd()
+    CreatePtsd(driver).is_Exist_baseinfo()
+
+    yield driver
+    driver.quit()
 
 # 声明fixture，会话前/后置操作
 @pytest.fixture(scope="session")
