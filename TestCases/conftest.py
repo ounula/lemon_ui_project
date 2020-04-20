@@ -62,6 +62,7 @@ def login_success():
     yield driver
     driver.quit()
 
+
 @pytest.fixture(scope="class")
 def get_ptsd_page():
     global driver
@@ -74,19 +75,6 @@ def get_ptsd_page():
     yield driver
     driver.quit()
 
-@pytest.fixture(scope="class")
-def into_create_ptsd_page():
-    global driver
-    # 前置操作
-    driver = webdriver.Chrome()
-    driver.maximize_window()
-    driver.get(CD.web_login_url)
-    LoginPage(driver).login(LD.success_data["用户名"], LD.success_data["密码"])
-    IndexPage(driver).click_ptsd()
-    CreatePtsd(driver).is_Exist_baseinfo()
-
-    yield driver
-    driver.quit()
 
 # 声明fixture，会话前/后置操作
 @pytest.fixture(scope="session")
