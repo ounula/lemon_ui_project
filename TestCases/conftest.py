@@ -60,7 +60,6 @@ def login_success():
     driver.get(CD.web_login_url)
     LoginPage(driver).login(LD.success_data["用户名"], LD.success_data["密码"])
     yield driver
-    driver.quit()
 
 
 @pytest.fixture(scope="class")

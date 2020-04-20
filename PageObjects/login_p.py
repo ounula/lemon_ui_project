@@ -3,6 +3,7 @@
 # time: 2020/4/12 0:00
 from PageLocators.loginpage_locator import LoginPageLocator as loc
 from Common.basepage import BasePage
+from TestDatas import login_datas as LD
 
 
 class LoginPage(BasePage):
@@ -29,3 +30,4 @@ class LoginPage(BasePage):
         doc = "错误提示框-账号或密码输入错误"
         self.wait_eleVisible(loc.errorMSG_error_user_passwd, doc=doc)
         return self.get_text(loc.errorMSG_error_user_passwd, doc=doc)
+
