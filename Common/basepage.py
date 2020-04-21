@@ -9,7 +9,7 @@ import time
 from Common.logger import Log
 from selenium import webdriver
 import win32con, win32gui
-
+import os
 
 # 封装基本函数 - 执行日志、异常处理、失败截图
 # 所有页面公共的部分
@@ -247,7 +247,10 @@ class BasePage:
 
     # 窗口切换
 
-    # 截图
+    #统计下载文件夹内文件数量
+    def count_downloadsFiles(self):
+        return len(os.listdir(dir_config.downloads_dir))
+
     def save_screenshot(self, doc):
         # 图片名称：模块名_页面名称_操作名称_年-月-日_时分秒.png
         filePath = dir_config.screenshot_dir + \

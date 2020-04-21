@@ -3,10 +3,10 @@
 # time: 2020/4/14 7:33
 import pytest
 from selenium import webdriver
-
+from Common import dir_config
 from PageObjects.index_p import IndexPage
 from PageObjects.login_p import LoginPage
-from PageObjects.createPtsd_p import CreatePtsd
+import os
 from TestDatas import common_datas as CD
 from TestDatas import login_datas as LD
 
@@ -55,7 +55,15 @@ def back_page():
 def login_success():
     global driver
     # 前置操作
-    driver = webdriver.Chrome()
+    options = webdriver.ChromeOptions()
+    prefs = {
+        "download.prompt_for_download": False,
+        'download.default_directory': dir_config.downloads_dir,  # 下载目录
+        "plugins.always_open_pdf_externally": True,
+        'profile.default_content_settings.popups': 0,  # 设置为0，禁止弹出窗口
+    }
+    options.add_experimental_option('prefs', prefs)
+    driver = webdriver.Chrome(options=options)
     driver.maximize_window()
     driver.get(CD.web_login_url)
     LoginPage(driver).login(LD.success_data["用户名"], LD.success_data["密码"])

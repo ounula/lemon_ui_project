@@ -9,7 +9,7 @@ from TestDatas import login_datas as LD
 from Common.logger import Log
 from PageObjects.login_p import LoginPage
 import pytest
-
+import time
 
 @pytest.mark.usefixtures("login_success")
 class TestPtsdPage:
@@ -24,3 +24,11 @@ class TestPtsdPage:
         PtsdList(login_success).click_down_re()
         assert PtsdList(login_success).is_exist_downRe_error()
         PtsdList(login_success).click_downRe_errorOk()
+
+    def test_export_ptsd(self,login_success):
+        a = PtsdList(login_success).count_downloadsFiles()
+        PtsdList(login_success).click_export_ptsd()
+        time.sleep(5)
+        b = PtsdList(login_success).count_downloadsFiles()
+        assert a != b
+

@@ -15,3 +15,5 @@ htmlreport_dir = os.path.join(base_dir,"Outputs/reports")
 logs_dir = os.path.join(base_dir,"Outputs/logs")
 
 screenshot_dir = os.path.join(base_dir,"Outputs/screenshots")
+
+downloads_dir = os.path.join(base_dir,"Outputs/downloads")

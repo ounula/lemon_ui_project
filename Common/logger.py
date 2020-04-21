@@ -58,3 +58,6 @@ class Log:
 
    def log_error(self,msg):
         self.getlogger('error',msg)
+
+   def exception(self, param):
+       pass

@@ -33,3 +33,7 @@ class PtsdList(BasePage):
     def click_downRe_errorOk(self):
         doc = "下载回证提示框点击确定"
         self.click_element(loc.down_re_erro, doc=doc)
+
+    def click_export_ptsd(self):
+        doc = "点击普通送达批量导出"
+        self.click_element(loc.export_ptsd,doc=doc)
