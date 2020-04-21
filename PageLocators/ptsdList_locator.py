@@ -12,10 +12,13 @@ class PtsdList:
     # 列表数据
     ptsd_data = ("普通送达列表", (By.XPATH, '//tr[@class="el-table__row"]'))
     # 下载回证
-    down_re = ("下载回证按钮", (By.XPATH, '//span[text()="查询"]'))
+    down_re = ("下载回证按钮", (By.XPATH, '//a[text()="下载回证"]'))
     # 受送达人标题
     ssdr_titile = ("受送达人标题", (By.XPATH, '//h3[text()="受送达人信息"]'))
     # 重置按钮
-    reset_button = ("重置", ('//span[text()="重置"]'))
+    reset_button = ("重置", (By.XPATH,'//span[text()="重置"]'))
     # 新建电话通知
     new_call = ("新建电话通知", ('//span[text()="重置"]'))
+    # 下载回证失败
+    down_re_erro = (
+        "下载回证失败确定按钮", (By.XPATH,'//button[@class= "el-button el-button--default el-button--small el-button--primary "]'))

@@ -5,11 +5,13 @@ from selenium import webdriver
 from Common import dir_config
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
-import time,datetime
+import time, datetime
 from selenium.webdriver.common.by import By
 from Common.logger import Log
 import os
 
-
 # a = os.listdir("C:\\")
 # print(a)
+tu = (i for i in range(10))
+print(next(tu))
+print(next(tu))

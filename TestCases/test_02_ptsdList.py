@@ -12,11 +12,15 @@ import pytest
 
 
 @pytest.mark.usefixtures("login_success")
-@pytest.mark.usefixtures("back_page")
 class TestPtsdPage:
-    def test_clickNewPtsd(self,login_success):
+    @pytest.mark.usefixtures("back_page")
+    def test_clickNewPtsd(self, login_success):
         Log().log_info("**********普通送达列表：正常场景   -   点击新建普通送达打开对应页面**********")
         PtsdList(login_success).new_ptsd()
         assert CreatePtsd(login_success).is_Exist_baseinfo()
 
-    def test_
+    def test_no_select_down_re(self, login_success):
+        Log().log_info("**********普通送达列表：异常场景   -   不勾选工单点击下载回证，弹出提示**********")
+        PtsdList(login_success).click_down_re()
+        assert PtsdList(login_success).is_exist_downRe_error()
+        PtsdList(login_success).click_downRe_errorOk()

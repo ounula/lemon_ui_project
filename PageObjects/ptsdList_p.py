@@ -16,10 +16,20 @@ class PtsdList(BasePage):
         self.wait_eleVisible(loc.create_ptsd, doc=doc)
         self.click_element(loc.create_ptsd, doc=doc)
 
-    def download_receipt_noWoker(self):
-        doc = "不勾选工单，点击下载回证"
-        self.click_element(loc.down_re, doc=doc)
-
     def reset_query(self):
         doc = "点击重置按钮"
         self.click_element(loc.reset_button, doc=doc)
+
+    def click_down_re(self):
+        doc = "点击下载回证"
+        self.wait_eleVisible(loc.down_re, doc=doc)
+        self.click_element(loc.down_re, doc=doc)
+
+    def is_exist_downRe_error(self):
+        doc = "定位下载回证失败提示"
+        self.wait_eleVisible(loc.down_re_erro, doc=doc)
+        return self.get_element(loc.down_re_erro, doc=doc)
+
+    def click_downRe_errorOk(self):
+        doc = "下载回证提示框点击确定"
+        self.click_element(loc.down_re_erro, doc=doc)
