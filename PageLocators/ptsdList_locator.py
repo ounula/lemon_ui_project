@@ -16,9 +16,12 @@ class PtsdList:
     # 受送达人标题
     ssdr_titile = ("受送达人标题", (By.XPATH, '//h3[text()="受送达人信息"]'))
     # 重置按钮
-    reset_button = ("重置", (By.XPATH,'//span[text()="重置"]'))
+    reset_button = ("重置", (By.XPATH, '//span[text()="重置"]'))
     # 新建电话通知
-    new_call = ("新建电话通知", ('//span[text()="重置"]'))
+    new_call = ("新建电话通知", (By.XPATH, '//span[text()="重置"]'))
     # 下载回证失败
     down_re_erro = (
-        "下载回证失败确定按钮", (By.XPATH,'//button[@class= "el-button el-button--default el-button--small el-button--primary "]'))
+        "下载回证失败确定按钮",
+        (By.XPATH, '//button[@class= "el-button el-button--default el-button--small el-button--primary "]'))
+    # 批量导出
+    export_ptsd = ("普通送达批量导出按钮", (By.XPATH, '//span[text()="批量导出"]'))
