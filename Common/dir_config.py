@@ -17,3 +17,6 @@ logs_dir = os.path.join(base_dir,"Outputs/logs")
 screenshot_dir = os.path.join(base_dir,"Outputs/screenshots")
 
 downloads_dir = os.path.join(base_dir,"Outputs/downloads")
+
+#软电话目录
+MicroSip_dir =r'D:\Program Files\MicroSIP\microsip.exe'

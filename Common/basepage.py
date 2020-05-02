@@ -251,7 +251,7 @@ class BasePage:
     def count_downloadsFiles(self):
         return len(os.listdir(dir_config.downloads_dir))
 
-    def save_screenshot(self, doc):
+    def save_screenshot(self, doc=""):
         # 图片名称：模块名_页面名称_操作名称_年-月-日_时分秒.png
         filePath = dir_config.screenshot_dir + \
                    "\\{0}_{1}.png".format(doc, time.strftime("%Y-%m-%d-%H-%M-%S"))

@@ -11,23 +11,9 @@ from Common.logger import Log
 import os
 from Common import dir_config
 import collections
+from Common.win_controller import WinControl
+from selenium import webdriver
 
-words = ["yo", "ew", "fc", "zrc", "yodn", "fcm", "qm", "qmo", "fcmz", "z", "ewq", "yod", "ewqz", "y"]
 
+WinControl().open_software(dir_config.MicroSip_dir,"软电话")
 
-def dsadas():
-    a = []
-    b = sorted(list(i for i in words if len(i) == max(len(k) for k in words)))
-    for i in range(len(b)):
-        for j in range(len(b[i])):
-            if a in words:
-                a.append(b[i][j])
-            # else:
-            #     break
-        return b[i]
-
-a = os.listdir(dir_config.downloads_dir)
-print(type(a))
-# tu = (i for i in range(10))
-# print(next(tu))
-# print(next(tu))
