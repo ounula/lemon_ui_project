@@ -233,7 +233,7 @@ class BasePage:
         except:
             Log.log_error("滚动条处理失败，定位：{}".format(locator))
             self.save_screenshot(doc)
-
+            raise
     # 取消read-only属性
     def cancel_readOnly(self, locator, doc=""):
         ele = self.get_element(locator, doc=doc)
@@ -259,4 +259,4 @@ class BasePage:
             Log().log_info("截屏成功，图片路径为{}".format(filePath))
         except:
             Log().log_info("截图失败")
-        raise
+            raise

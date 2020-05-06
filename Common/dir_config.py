@@ -21,4 +21,4 @@ downloads_dir = os.path.join(base_dir,"Outputs/downloads")
 downloads_dir = os.path.join(base_dir,"Outputs/downloads")
 
 #软电话目录
-MicroSip_dir =r'D:\Program Files\MicroSIP\microsip.exe'
+MicroSip_dir =r'C:\Users\yiii\AppData\Local\MicroSIP\microsip.exe'

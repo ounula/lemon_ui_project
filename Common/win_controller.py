@@ -8,19 +8,8 @@ from time import sleep
 from pywinauto.keyboard import send_keys
 import pywinauto
 
-class WinControl:
-    # 打开指定软件
-    def open_software(self, softwarePath, doc=""):
-        try:
-            #启动软件
-            app = Application('uia').start(MicroSip_dir)
-            sleep(2)
-            app2 = Application('uia').connect(path=MicroSip_dir)
-            dlg = app2['MicroSIP']
-            Log().log_info(doc+"开启成功")
-        except:
-            Log().log_error(doc+"开启失败")
 
+class WinControl:
     def upload_file(self,file_path,file,doc='',*args):
         try:
             #选择文件
@@ -36,6 +25,37 @@ class WinControl:
             Log().log_info(doc+"上传文件成功")
         except:
             Log().log_error(doc+"上传文件失败")
+
+class MicroSIP:
+    # 软电话控制，先关闭软电话检查更新
+    def __init__(self,path=None,process=None):
+        if path:
+            try:
+                self.app = pywinauto.Application(backend="uia").start(path)
+                self.app2 = pywinauto.Application(backend="uia").connect(path=path)
+                Log().log_info("软电话启动成功")
+            except:
+                Log().log_error("软电话启动失败")
+                raise
+        else:
+            try:
+                self.app = pywinauto.Application(backend="uia").connect(process=process)
+                Log().log_info("软电话程序连接成功")
+            except:
+                Log().log_error("软电话程序连接失败")
+                raise
+
+    def open_software(self, softwarePath, doc=""):
+        try:
+            #启动软件
+            app = Application('uia').start(MicroSip_dir)
+            sleep(2)
+            app2 = Application('uia').connect(path=MicroSip_dir)
+            dlg = app2['MicroSIP']
+            Log().log_info(doc+"开启成功")
+        except:
+            Log().log_error(doc+"开启失败")
+
 # app = Application('uia').start(MicroSip_dir)
 # sleep(2)
 # app2 = Application('uia').connect(path=MicroSip_dir)

@@ -13,10 +13,11 @@ from Common import dir_config
 import collections
 from Common.win_controller import WinControl
 from selenium import webdriver
-from Common.win_controller import WinControl
+from Common.win_controller import WinControl,MicroSIP
 
-driver = webdriver.Chrome()
-driver.get("https://www.layui.com/demo/upload.html")
-driver.implicitly_wait(10)
-driver.find_element_by_id('test2').click()
-WinControl().upload_file('D:\\','新建文本文档.txt')
+# driver = webdriver.Chrome()
+# driver.get("https://www.layui.com/demo/upload.html")
+# driver.implicitly_wait(10)
+# driver.find_element_by_id('test2').click()
+# WinControl().upload_file('C:\\','wallpaper.png')
+MicroSIP(dir_config.MicroSip_dir)
