@@ -11,8 +11,27 @@ from Common.logger import Log
 import os
 from Common import dir_config
 
-a = os.listdir(dir_config.downloads_dir)
-print(type(a))
-# tu = (i for i in range(10))
-# print(next(tu))
-# print(next(tu))
+username = 'zhh'
+password = '123456'
+
+
+def login(func):
+    def fun():
+        user = input("请输入账号：")
+        pw = input("请输入密码：")
+        if username == user and pw == password:
+            func()
+        else:
+            print("账号或密码错误")
+
+    return fun
+
+
+# @login  # @login：语法糖   --> index = login(index)
+def index():
+    print("登陆成功")
+
+
+# index()
+index = login(index)
+print(index())
